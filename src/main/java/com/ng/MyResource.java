@@ -1,5 +1,7 @@
 package com.ng;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.ng.dao.Dao;
 import com.ng.domain.Album;
 
@@ -15,18 +17,18 @@ import java.util.Map;
 @Path("myresource")
 public class MyResource {
 
-    private Dao<String> dao;
+    Injector injector = Guice.createInjector(new Main());
+    Dao<String> dao = injector.getInstance( Dao.class );
 //
 //    @Inject
 //    public MyResource( Dao<String> dao ) {
 //        this.dao = dao;
 //    }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getIt() {
-        //Album album =  (Album)dao.getById("1");
-        //return album.getName();
-        return "{status: ok}";
+    @GET @Produces("application/json")
+    public Album getIt() {
+        Album album =  (Album)dao.getById("1");
+        return album;
+        //return "{status: ok}";
     }
 }

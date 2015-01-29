@@ -1,5 +1,7 @@
 package com.ng.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by root on 29/01/15.
  */
