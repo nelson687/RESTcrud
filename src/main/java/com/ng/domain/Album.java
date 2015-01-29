@@ -1,14 +1,47 @@
 package com.ng.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 
-/**
- * Created by root on 29/01/15.
- */
 public class Album {
 
-    String name;
-    String artist;
+    private int id;
+    private String name;
+    private Artist artist;
+    private ArrayList<Song> songs;
+    private Genre genre;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(ArrayList<Song> songs) {
+        this.songs = songs;
+    }
+
+    public void addSong(Song song){
+        this.songs.add(song);
+    }
+
+    public ArrayList<Song> getSong() {
+        return songs;
+    }
 
     public String getName() {
         return name;
@@ -18,18 +51,18 @@ public class Album {
         this.name = name;
     }
 
-    public String getArtist() {
+    public Artist getArtist() {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
     public Album(){
 
     }
-    public Album(String name, String artist){
+    public Album(String name, Artist artist){
         this.name = name;
         this.artist = artist;
     }

@@ -2,6 +2,8 @@ package com.ng.dao;
 
 import com.ng.domain.Album;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoImpl implements Dao{
@@ -11,8 +13,8 @@ public class DaoImpl implements Dao{
     }
 
     @Override
-    public Object getById(String id) {
-        Album album = new Album("NelsonAlbum", "Gallardo");
-        return album;
+    public Object getById(int id, HttpSession session) {
+        ArrayList<Album> albums = (ArrayList)session.getAttribute("albums");
+        return albums.get(id);
     }
 }
