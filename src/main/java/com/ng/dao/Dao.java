@@ -19,8 +19,12 @@ public interface Dao<T> {
 
     ArrayList getSongByName(String name, ServletContext context);
 
+    ArrayList getSongsByArtist(String name, ServletContext context);
+
     void saveSong(Song song, ServletContext context);
 
+    String deleteSong(Song song, ServletContext context);
 
-    //ArrayList getSongByArtist(String name, HttpSession session);
+    String updateSong(Song song, ServletContext context);
+
 }

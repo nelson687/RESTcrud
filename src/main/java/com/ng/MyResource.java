@@ -1,39 +1,20 @@
 package com.ng;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.ng.dao.Dao;
 import com.ng.domain.Album;
 import com.ng.domain.Artist;
 import com.ng.domain.Song;
 
-import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-
-@Path("myresource")
+@Path("init")
 public class MyResource {
 
-    //HttpSession session;
-    Injector injector = Guice.createInjector(new Main());
-    Dao<String> dao = injector.getInstance( Dao.class );
-
-    public MyResource(@Context HttpServletRequest req) {
-        //session= req.getSession(true);
-    }
-
     @GET @Produces("application/json")
-    @Path("/init")
     public String init(@Context ServletContext context) {
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
@@ -64,6 +45,7 @@ public class MyResource {
         context.setAttribute("albums", albums);
         context.setAttribute("artists", artists);
         context.setAttribute("songs", songs);
+        context.setAttribute("initialized", true);
         return "{status: Data successfully loaded}";
     }
 }
