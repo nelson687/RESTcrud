@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.ng.dao.Dao;
 import com.ng.domain.Album;
 import com.ng.domain.Artist;
+import com.ng.domain.Song;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,18 @@ public class MyResource {
         albums.add(album);
         albums.add(album1);
         albums.add(album2);
+
+
+        ArrayList<Song> songs = new ArrayList<Song>();
+        Song song = new Song();
+        song.setId(0);
+        song.setName("Nelson Song");
+        songs.add(song);
+
+
         session.setAttribute("albums", albums);
+        session.setAttribute("artists", artists);
+        session.setAttribute("songs", songs);
         return "{status: Data successfully loaded}";
     }
 }

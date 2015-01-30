@@ -8,10 +8,7 @@ import com.ng.domain.Song;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import java.util.ArrayList;
 
@@ -35,14 +32,25 @@ public class SongResource {
 
     @GET @Produces("application/json")
     @Path("/search/")
-    public ArrayList<Album> getByName(@QueryParam( "name" ) String name, @QueryParam( "artist" ) String genre) {
+    public ArrayList<Song> getByName(@QueryParam( "name" ) String name, @QueryParam( "genre" ) String genre, @QueryParam( "artist" ) String artist) {
         if(name != null){
-            return dao.getAlbumByName(name, session);
+            return dao.getSongByName(name, session);
         }else if(genre != null){
-            return dao.getAlbumByGenre(genre, session);
-        }else{
-            return new ArrayList<Album>();
+            return dao.getSongsByGenre(genre, session);
+        }else if(artist != null){
+            //return dao.getSongsByArtist(genre, session);
         }
+
+        return new ArrayList<Song>();
+    }
+
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/upload")
+    public void postStrMsg(Song song) {
+        dao.saveSong(song, session);
     }
 
 }

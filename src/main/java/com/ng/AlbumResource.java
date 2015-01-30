@@ -31,14 +31,8 @@ public class AlbumResource {
 
     @GET @Produces("application/json")
     @Path("/search/")
-    public ArrayList<Album> getByName(@QueryParam( "name" ) String name, @QueryParam( "genre" ) String genre) {
-        if(name != null){
-            return dao.getAlbumByName(name, session);
-        }else if(genre != null){
-            return dao.getAlbumByGenre(genre, session);
-        }else{
-            return new ArrayList<Album>();
-        }
+    public ArrayList<Album> getByName(@QueryParam( "name" ) String name) {
+        return dao.getAlbumByName(name, session);
     }
 
 }

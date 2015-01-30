@@ -6,7 +6,7 @@ public class Song {
     private String name;
     private Artist artist;
     private Album album;
-
+    private String genre;
 
     public int getId() {
         return id;
@@ -40,4 +40,11 @@ public class Song {
         this.album = album;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }

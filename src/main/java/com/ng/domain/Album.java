@@ -9,7 +9,7 @@ public class Album {
     private String name;
     private Artist artist;
     private ArrayList<Song> songs;
-    private String genre;
+
 
     public int getId() {
         return id;
@@ -17,14 +17,6 @@ public class Album {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public ArrayList<Song> getSongs() {
