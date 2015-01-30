@@ -9,7 +9,7 @@ public class Album {
     private String name;
     private Artist artist;
     private ArrayList<Song> songs;
-    private Genre genre;
+    private String genre;
 
     public int getId() {
         return id;
@@ -19,11 +19,11 @@ public class Album {
         this.id = id;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 

@@ -42,8 +42,11 @@ public class MyResource {
 
         ArrayList<Album> albums = new ArrayList<Album>();
         Album album = new Album("NelsonAlbum", artist);
+        album.setId(0);
         Album album1 = new Album("Jorge Album",artist);
+        album1.setId(1);
         Album album2 = new Album("Lorena Album", artist);
+        album2.setId(2);
         albums.add(album);
         albums.add(album1);
         albums.add(album2);
