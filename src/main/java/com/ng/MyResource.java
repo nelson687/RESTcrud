@@ -8,6 +8,7 @@ import com.ng.domain.Artist;
 import com.ng.domain.Song;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
@@ -23,17 +24,17 @@ import java.util.Map;
 @Path("myresource")
 public class MyResource {
 
-    HttpSession session;
+    //HttpSession session;
     Injector injector = Guice.createInjector(new Main());
     Dao<String> dao = injector.getInstance( Dao.class );
 
     public MyResource(@Context HttpServletRequest req) {
-        session= req.getSession(true);
+        //session= req.getSession(true);
     }
 
     @GET @Produces("application/json")
     @Path("/init")
-    public String init() {
+    public String init(@Context ServletContext context) {
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
         Artist artist = new Artist();
@@ -60,9 +61,9 @@ public class MyResource {
         songs.add(song);
 
 
-        session.setAttribute("albums", albums);
-        session.setAttribute("artists", artists);
-        session.setAttribute("songs", songs);
+        context.setAttribute("albums", albums);
+        context.setAttribute("artists", artists);
+        context.setAttribute("songs", songs);
         return "{status: Data successfully loaded}";
     }
 }

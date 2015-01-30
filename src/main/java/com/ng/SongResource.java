@@ -6,6 +6,7 @@ import com.ng.dao.Dao;
 import com.ng.domain.Album;
 import com.ng.domain.Song;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
@@ -16,27 +17,23 @@ import java.util.ArrayList;
 @Path("song")
 public class SongResource {
 
-    HttpSession session;
     Injector injector = Guice.createInjector(new Main());
     Dao<String> dao = injector.getInstance( Dao.class );
 
-    public SongResource(@Context HttpServletRequest req) {
-        session= req.getSession(true);
-    }
-
     @GET @Produces("application/json")
     @Path("/get/")
-    public Song getById(@QueryParam( "id" ) int id) {
-        return (Song)dao.getById(id, session, "songs");
+    public Song getById(@QueryParam( "id" ) int id, @Context ServletContext context) {
+        //session= req.getSession(true);
+        return (Song)dao.getById(id, context, "songs");
     }
 
     @GET @Produces("application/json")
     @Path("/search/")
-    public ArrayList<Song> getByName(@QueryParam( "name" ) String name, @QueryParam( "genre" ) String genre, @QueryParam( "artist" ) String artist) {
+    public ArrayList<Song> getByName(@Context ServletContext context, @QueryParam( "name" ) String name, @QueryParam( "genre" ) String genre, @QueryParam( "artist" ) String artist) {
         if(name != null){
-            return dao.getSongByName(name, session);
+           return dao.getSongByName(name, context);
         }else if(genre != null){
-            return dao.getSongsByGenre(genre, session);
+           return dao.getSongsByGenre(genre, context);
         }else if(artist != null){
             //return dao.getSongsByArtist(genre, session);
         }
@@ -49,8 +46,10 @@ public class SongResource {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/upload")
-    public void postStrMsg(Song song) {
-        dao.saveSong(song, session);
+    public String saveSong(Song song, @Context ServletContext context) {
+       // session= req.getSession(true);
+        dao.saveSong(song, context);
+        return "{save: success}";
     }
 
 }
