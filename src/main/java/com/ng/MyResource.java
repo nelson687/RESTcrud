@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.ng.dao.Dao;
 import com.ng.domain.Album;
+import com.ng.domain.Artist;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -32,20 +33,21 @@ public class MyResource {
     @GET @Produces("application/json")
     @Path("/init")
     public String init() {
+
+        ArrayList<Artist> artists = new ArrayList<Artist>();
+        Artist artist = new Artist();
+        artist.setName("Gallardo");
+        artists.add(artist);
+
+
         ArrayList<Album> albums = new ArrayList<Album>();
-        Album album = new Album("NelsonAlbum", "Gallardo");
-        Album album1 = new Album("Jorge Album", "Jorge");
-        Album album2 = new Album("Lorena Album", "Lorena");
+        Album album = new Album("NelsonAlbum", artist);
+        Album album1 = new Album("Jorge Album",artist);
+        Album album2 = new Album("Lorena Album", artist);
         albums.add(album);
         albums.add(album1);
         albums.add(album2);
         session.setAttribute("albums", albums);
         return "{status: Data successfully loaded}";
-    }
-
-    @GET @Produces("application/json")
-    @Path("/getAlbum")
-    public Album getById() {
-        return (Album)dao.getById(1, session);
     }
 }
