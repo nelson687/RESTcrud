@@ -1,0 +1,55 @@
+Rest service:
+The application dependencies are managed by maven, to build and run the tests run: mvn clean install.
+
+As the application doesn't use a database (as per test's request), the app has a service to create a few objects (songs, albums, etc) in memory injecting a ServletContext, to do this run:
+http://localhost:8080/webapi/init
+If the load is successful the response will be: "{status: Data successfully loaded}"
+This service must be executed any time the app is deployed or tomcat restarted, otherwise you won't receive any results.
+
+
+Song api:
+*get a song by its id (http GET):
+http://localhost:8080/webapi/song/get?id=0
+If the init service was executed before, you'll get a song in json format as the response. (the init service only loads one song, therefore if you search for id=1 you will receive an empty json).
+
+*search song (http GET):
+	bySongName:
+	http://localhost:8080/webapi/song/search?name=name (the init service loads one song with name "Song Name")
+	returns a json array with all the coincidences.
+
+	byArtistName:
+	http://localhost:8080/webapi/song/search?artist=artist (the init service loads one song with artist name "Artist Name")
+	returns a json array with all the coincidences.
+
+	byGenre:
+	http://localhost:8080/webapi/song/search?genre=rock (the init service loads one song with genre "rock")
+	returns a json array with all the coincidences.
+
+
+*upload song (http POST):
+http://localhost:8080/webapi/song/upload
+Contenttype:
+application/json
+Json body:
+{"artist":{"id":0,"name":"Artist Name 2"},"genre":"Pop","name":"New song"}
+If the save was successful you'll get: "{save: success}"
+
+
+*delete song:
+http://localhost:8080/webapi/song/delete
+Contenttype:
+application/json
+Json body:
+{"name":"New song"}
+If delete was successful you'll get: "{remove: success}"
+
+
+*update song:
+http://localhost:8080/webapi/song/update
+Contenttype:
+application/json
+Json body:
+{"id": "0", "name":"nelson song"}
+or if you want to modify the artist:
+{"artist":{"name":"Nelson artist"},"id": "0"}
+If update was successful you'll get: "{update: success}"

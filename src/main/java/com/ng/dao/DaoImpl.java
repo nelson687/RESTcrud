@@ -92,6 +92,7 @@ public class DaoImpl implements Dao{
     @Override
     public void saveSong(Song song, ServletContext context) {
         ArrayList<Song> songs = (ArrayList)context.getAttribute("songs");
+        song.setId(songs.size());
         songs.add(song);
     }
 
@@ -100,7 +101,7 @@ public class DaoImpl implements Dao{
         ArrayList<Song> songs = (ArrayList)context.getAttribute("songs");
         Song song = new Song();
         for(int i = 0; i < songs.size(); i++){
-            if(songs.get(i).getName() != null && songs.get(i).getName().toLowerCase() == songToDelete.getName()){
+            if(songs.get(i).getName() != null && songs.get(i).getName().toLowerCase().equals(songToDelete.getName().toLowerCase())){
                 song = songs.get(i);
                 break;
             }
